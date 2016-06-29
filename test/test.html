@@ -132,8 +132,8 @@
       if(evt.target.tagName == 'A') {
         mathField.write(evt.target.innerHTML).focus();
       }
-      if(evt.target.className == 'post') {
-        $.post('/simplify', {
+      if(evt.target.className == 'get') {
+        $.get('/simplify', {
           latex_formula: mathField.latex(),
           usediv: 0,
           jsonout: 1
