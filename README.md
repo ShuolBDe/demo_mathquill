@@ -1,4 +1,5 @@
-# [MathQuill](http://mathquill.com)
+## 测试公式编辑器
+<!-- # [MathQuill](http://mathquill.com)
 
 by [Han](http://github.com/laughinghan), [Jeanine](http://github.com/jneen), and [Mary](http://github.com/stufflebear) (<maintainers@mathquill.com>) [<img alt="slackin.mathquill.com" src="http://slackin.mathquill.com/badge.svg" align="top">](http://slackin.mathquill.com)
 
@@ -41,3 +42,4 @@ License, v. 2.0: [http://mozilla.org/MPL/2.0/](http://mozilla.org/MPL/2.0/)
 The quick-and-dirty is you can do whatever if modifications to MathQuill are in
 public GitHub forks. (Other ways to publicize modifications are also fine, as
 are private use modifications. See also: [MPL 2.0 FAQ](https://www.mozilla.org/en-US/MPL/2.0/FAQ/))
+ -->
