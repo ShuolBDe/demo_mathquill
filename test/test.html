@@ -138,14 +138,16 @@
           usediv: 0,
           jsonout: 1
         }, function(res) {
+          typeof res == 'string' && (res = JSON.parse(res));
           var steps = res.step_result,
             final = res.final_result;
           steps.forEach(function(item) {
+            mathField.write('=');
             mathField.write(item[1]);
-            mathField.el().appendChild(document.createElement('br'));
+            mathField.write('=');
             mathField.write(item[0]);
           });
-          mathField.el().appendChild(document.createElement('br'));
+          mathField.write('=');
           mathField.write(final);
         });
       }
