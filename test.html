@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>MathQuill</title>
+  <link rel="stylesheet" type="text/css" href="../build/mathquill.css">
+  <style type="text/css">
+    #answer, #show {
+      display: inline-block;
+      width: 100%;
+      height: 150px;
+    }
+    #answer {
+      border: 0;
+      height: 100px;
+    }
+    .field {
+      border: 1px solid #333;
+    }
+    input {
+      padding: 5px 20px;
+      margin: 5px 0;
+    }
+    table {
+      width: 100%;
+      text-align: center;
+      background: #f3f3f3;
+    }
+    table td a {
+      display: inline-block;
+      width: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+      border: 1px solid #fff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="field">
+    <span id="answer"></span>
+    <span id="show"></span>
+  </div>
+  <input type="button" class="formula" cmd="+" value="+">
+  <input type="button" class="formula" cmd="-" value="-">
+  <input type="button" class="formula" cmd="*" value="*">
+  <input type="button" class="formula" cmd="/" value="/">
+  <input type="button" class="formula" cmd="\frac" value="分数">
+  <input type="button" class="formula" cmd="^" value="指数">
+  <input type="button" class="formula" write="\sqrt[]{}" value="根号">
+  <input type="button" class="formula" cmd="(" value="(">
+  <input type="button" class="formula" cmd=")" value=")">
+  <input type="button" class="formula" write="^{\circ}" value="角度">
+  <input type="button" class="formula" write="\log_{}()" value="log">
+  <input type="button" class="formula" write="\left|{}\right|" value="|x|">
+  <input type="button" class="formula" cmd="\lg" value="lg">
+  <input type="button" class="formula" cmd="\ln" value="ln">
+  <input type="button" class="formula" cmd="\sin" value="sin">
+  <input type="button" class="formula" cmd="\cos" value="cos">
+  <input type="button" class="formula" cmd="\tan" value="tan">
+  <input type="button" class="formula" cmd="\cot" value="cot">
+  <input type="button" class="formula" cmd="\arcsin" value="arcsin">
+  <input type="button" class="formula" cmd="\arccos" value="arccos">
+  <input type="button" class="formula" cmd="\arctan" value="arctan">
+  <input type="button" class="formula" cmd="\arccot" value="arccot">
+  <input type="button" class="formula" cmd="\pi" value="π">
+  <input type="button" class="keystroke" cmd="Right" value="→">
+  <input type="button" class="keystroke" cmd="Left" value="←">
+  <input type="button" class="keystroke" cmd="Backspace" value="删除">
+  <!-- <input type="button" class="move" cmd="Up" value="↑">
+  <input type="button" class="move" cmd="Donw" value="↓">
+  <input type="button" class="moveToEnd" cmd="R" value="->|">
+  <input type="button" class="moveToEnd" cmd="L" value="|<-"> -->
+  <input type="button" class="keystroke" cmd="Shift-Left" value="向左选中">
+  <input type="button" class="keystroke" cmd="Shift-Right" value="向右选中">
+  <input type="button" class="selection" cmd="select" value="全选">
+  <input type="button" class="selection" cmd="clearSelection" value="清除全选">
+  <input type="button" class="get" value="提交">
+  <input type="button" value="刷新" onclick="location.reload();">
+  <table>
+    <tbody>
+      <tr>
+        <td><a href="javascript:;">1</a></td>
+        <td><a href="javascript:;">2</a></td>
+        <td><a href="javascript:;">3</a></td>
+      </tr>
+      <tr>
+        <td><a href="javascript:;">4</a></td>
+        <td><a href="javascript:;">5</a></td>
+        <td><a href="javascript:;">6</a></td>
+      </tr>
+      <tr>
+        <td><a href="javascript:;">7</a></td>
+        <td><a href="javascript:;">8</a></td>
+        <td><a href="javascript:;">9</a></td>
+      </tr>
+      <tr>
+        <td><a href="javascript:;">*</a></td>
+        <td><a href="javascript:;">0</a></td>
+        <td><a href="javascript:;">#</a></td>
+      </tr>
+      <tr>
+        <td><a href="javascript:;">x</a></td>
+        <td><a href="javascript:;">y</a></td>
+        <td><a href="javascript:;">a</a></td>
+      </tr>
+      <tr>
+        <td><a href="javascript:;">b</a></td>
+        <td><a href="javascript:;">m</a></td>
+        <td><a href="javascript:;">n</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <script type="text/javascript" src="support/jquery-1.7.2.js"></script>
+  <script type="text/javascript" src="../build/mathquill.js"></script>
+  <script>
+    var MQ = MathQuill.getInterface(2);
+    var answerSpan = document.getElementById('answer'),
+      showSpan = document.getElementById('show');
+    var mathField = MQ.MathField(answerSpan, {
+      // substituteTextarea: function() {
+      //   return document.createElement('textarea');
+      // }
+    }),
+      showField = MQ.StaticMath(showSpan);
+      // showField = MQ.MathField(showSpan);
+    $('body').on('click', 'input, a', function() {
+      if($(this).prop('tagName') == 'INPUT') {
+        if($(this).attr('cmd')) {
+          var cmd = $(this).attr('cmd');
+          if($(this).hasClass('formula')) {
+            mathField.cmd(cmd).focus();
+          }
+          if($(this).hasClass('moveToEnd')) {
+            mathField.moveToDirEnd(MQ[cmd]).focus()
+          }
+          if($(this).hasClass('selection')) {
+            mathField[cmd]();
+          }
+          if($(this).hasClass('keystroke')) {
+            mathField.keystroke(cmd).focus();
+          }
+
+        } else if($(this).attr('write')) {
+          var content = $(this).attr('write');
+          if($(this).hasClass('formula')) {
+            mathField.write(content).focus();
+          }
+        }
+      }
+      if($(this).prop('tagName') == 'A') {
+        mathField.write($(this).text()).focus();
+      }
+      if($(this).hasClass('get')) {
+        $.get('/simplify', {
+          latex_formula: mathField.latex(),
+          usediv: 0,
+          jsonout: 1
+        }, function(res) {
+          typeof res == 'string' && (res = JSON.parse(res));
+          var steps = res.step_result,
+            final = res.final_result;
+          steps.forEach(function(item)  {
+            showField.write(item[1]);
+            $('.mq-root-block', showSpan).append('<br>');
+            showField.write(item[0]);
+            $('.mq-root-block', showSpan).append('<br>');
+          });
+          showField.write(final);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
