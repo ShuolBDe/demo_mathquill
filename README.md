@@ -5,7 +5,7 @@
 
 ### Get Start
 ```
-  git clone https://github.com/ShuolBDe/testMathquill.git
+  git clone https://github.com/ShuolBDe/demo_mathquill.git
 ```
 ### Steps
 直接将整个目录放到webroot的static目录下，从浏览器中发起请求即可
